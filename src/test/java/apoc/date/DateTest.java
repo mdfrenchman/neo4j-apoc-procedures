@@ -288,6 +288,11 @@ public class DateTest {
 		testCall(db, "RETURN apoc.date.toYears(apoc.date.parse('2012','ms','YYYY') - apoc.date.parse('2008','ms','YYYY')) as years", row -> assertEquals(4d, (double)row.get("years"),0.5d));
 	}
 
+	@Test
+	public void testDateAddSevenDays() throws Exception {
+		testCall(db, "RETURN apoc.date.add(0, 7, 'days') as sevenDaysAhead", row -> assertEquals(7 * SECONDS_PER_DAY * 1000, (long)row.get("sevenDaysAhead")));
+	}
+
 	private SimpleDateFormat formatInUtcZone(final String pattern) {
 		SimpleDateFormat customFormat = new SimpleDateFormat(pattern);
 		customFormat.setTimeZone(TimeZone.getTimeZone("UTC"));

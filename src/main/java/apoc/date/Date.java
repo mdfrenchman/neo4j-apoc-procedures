@@ -85,6 +85,12 @@ public class Date {
 		return result.asMap();
 	}
 
+	@UserFunction
+	@Description("apoc.date.add(time, numToAdd, unitToAdd) ex: apoc.date.add(timestamp(), 7, '[ms|s|m|h|d]')")
+	public Long add(@Name("time") long time, @Name("numToAdd") long numToAdd, @Name(value = "unitToAdd", defaultValue = "ms") String unitToAdd){
+		return time + unit(unitToAdd).toMillis(numToAdd);
+	}
+
 	public static class FieldResult {
 		public final Map<String,Object> value = new LinkedHashMap<>();
 		public long years, months, days, weekdays, hours, minutes, seconds;
